@@ -1,0 +1,13 @@
+tensorflow==1.0.0
+keras==1.2.2
+coremltools
+jupyter
+h5py
+
+# Progress bar
+Progressbar
+
+# To test converted models, we would like to download images and use
+# them to to feed into the model
+requests
+Pillow
