@@ -5,19 +5,23 @@ COPY requirements.txt /requirements.txt
 # Install general dev tools
 RUN apt-get update && apt-get install -y \ 
     wget \
-    python2.7 \
-    python-pip \
-    python-dev \
-    ipython \
-    ipython-notebook 
+    python3 \
+    python3-pip \
+    python3-dev \
+    ipython3
 
 # Install python requirements
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip3 install ipython[notebook]
+RUN pip3 install --upgrade pip
+RUN pip3 install -r requirements.txt
 
 # Install Jupyter Plugins
-RUN pip install ipywidgets
+RUN pip3 install ipywidgets
 RUN jupyter nbextension enable --py widgetsnbextension
+
+# Workaround for jupyter kernel crashes
+RUN pip3 install 'jupyter-console==5.2.0'
+RUN pip3 install 'prompt-toolkit>=1.0.15,<2.0.0'
 
 # Create workspace directory
 RUN mkdir -p /workspace/models
@@ -26,4 +30,4 @@ RUN mkdir -p /workspace/models
 EXPOSE 8888
 
 # Launch Jupyter notebook
-CMD ["jupyter-notebook","--allow-root", "--ip=0.0.0.0", "--notebook-dir=/workspace"]
+CMD ["jupyter-notebook","--allow-root", "--ip=0.0.0.0", "--notebook-dir=/workspace", "--NotebookApp.token=''", "--NotebookApp.password=''"]

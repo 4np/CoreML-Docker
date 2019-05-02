@@ -6,11 +6,13 @@ The docker image comes out of the box with a couple of example models and conver
 ./build-and-run.sh
 ```
 
-When the container is running, navigate to [notebooks/notebook/Convert Karas Model.ipynb](http://0.0.0.0:8888/notebooks/notebook/Convert%20Food%20101%20Karas%20Model.ipynb) and execute the script blocks (`control-enter`), this will:
+When the container is running, navigate to [notebooks/notebook/Convert Karas Model.ipynb](http://127.0.0.1:8888/notebooks/notebook/Convert%20Food%20101%20Karas%20Model.ipynb) and execute the script blocks (by clicking the ![Run](run-button.png) button on top of the notebook), this will:
 
-- download the Food 101 Keras model and labels (to [/models](http://0.0.0.0:8888/tree/models))
-- convert the Food 101 Keras model to a CoreML model (to [the root](http://0.0.0.0:8888/tree))
-
+- step through the differrent blocks in the notebook (_note: wait for the script blocks to finish executing before executing the next block!_)
+- download the Food 101 Keras model and labels (to [/models](http://127.0.0.1:8888/tree/models))
+- convert the Food 101 Keras model to a CoreML model 
+- test the converted model
+- save the CoreML model (to [the root](http://127.0.0.1:8888/tree))
 
 ## Customization
 
@@ -48,6 +50,10 @@ docker run --rm -it -p 8888:8888 -v $(pwd)/notebook:/workspace/notebook convert-
 ### Launch Jupyter
 
 Browse to [https://localhost:8888](https://localhost:8888) and check out the [notebooks](http://0.0.0.0:8888/tree/notebook).
+
+## Note
+
+The `keras-food101-model` is unfortunately only compatible with `keras 1.2.2` and `Tensorflow 1.0.1`, so they have been pinned to these versions in [requirements.txt](https://github.com/4np/CoreML-Docker/blob/master/requirements.txt). Also, the model prediction step is only available when running on `macOS` (so not inside a Docker container) so it is expected to fail. The convertion to a Core ML model works fine though.
 
 ## Additional Resources
 
